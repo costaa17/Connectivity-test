@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Simple Multiplayer/My Scenes/Main.unity
+  - enabled: 0
+    path: Assets/Simple Multiplayer/Scenes/Main.unity
     guid: 11fc0072e0b8e4542a6c63d121a87f2f
+  - enabled: 1
+    path: Assets/Simple Multiplayer/Scenes/game.unity
+    guid: d14156bbffa1a7247a50f5393d2ba6b8

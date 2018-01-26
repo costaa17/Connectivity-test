@@ -10,10 +10,10 @@ public class PlayerConnectionObject : NetworkBehaviour
 
     // SyncVar are variables where if their value changes on the server,
     // then all clients are automatically informed of the new value.
-    [SyncVar]
+    [SyncVar(hook ="OnPlayerNameChanged")]
     public string PlayerName = "Default";
 
-    private GameObject PlayerUnit;
+    public GameObject PlayerUnit;
 
     void Start()
     {
@@ -26,15 +26,20 @@ public class PlayerConnectionObject : NetworkBehaviour
 
         // Spawn an object to the world
         CmdSpawnMyUnit();
+        //this.GetComponent<NetworkIdentity>().connectionToServer.playerControllers;
+        Debug.Log("id: " + this.gameObject.GetComponent<NetworkIdentity>().netId);
+    }
+    
+    void Update()
+    {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnPlayerNameChanged(string newName)
     {
-        Debug.Log("number of connections: " + Network.connections.Length);
+        Debug.Log("OnPlayerNamechanged: Oldname: " + PlayerName + " . New name: " + newName);
+        PlayerName = newName;
     }
-
 
     // COMMANDS
     // Commande are specials functions that ONLY get executed on the server
@@ -43,28 +48,28 @@ public class PlayerConnectionObject : NetworkBehaviour
     {
         Debug.Log("PlayerObject: I am alive !!!");
         PlayerUnit = Instantiate(PlayerUnitPrefab);
-
-        PlayerUnit.GetComponent<PlayerUnit>().SetConnectionObject(this);
-        NetworkServer.SpawnWithClientAuthority(PlayerUnit, connectionToClient);
+        
         CmdChangePlayerName(PlayerName);
+        NetworkServer.SpawnWithClientAuthority(PlayerUnit, connectionToClient);
+
     }
 
 
     [Command]
     void CmdChangePlayerName(string name)
     {
-        PlayerName = name + Random.Range(1,100);
-        PlayerUnit.transform.Find("name").GetComponent<TextMesh>().text = PlayerName;
+        PlayerName = name + Random.Range(1, 100);
+        RpcChangePlayerNameTag();
         Debug.Log("name changed");
     }
 
 
     ///////////////RPC
-    // RPCs are special functions that ONLY get exrcuted on the clients
+    // RPCs are special functions that ONLY get executed on the clients
 
-    //[ClientRpc]
-    //void RpcChangePlayerName(string name)
-    //{
-    //    PlayerName = name;
-    //}
+    [ClientRpc]
+    void RpcChangePlayerNameTag()
+    {
+        
+    }
 }
