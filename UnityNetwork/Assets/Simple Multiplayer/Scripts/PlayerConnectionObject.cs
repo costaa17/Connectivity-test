@@ -11,7 +11,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     // SyncVar are variables where if their value changes on the server,
     // then all clients are automatically informed of the new value.
     [SyncVar(hook ="OnPlayerNameChanged")]
-    public string PlayerName = "Default";
+    public string PlayerName = "Player";
 
     public GameObject PlayerUnit;
 
@@ -20,7 +20,7 @@ public class PlayerConnectionObject : NetworkBehaviour
         // Is this my own local object
         if (!isLocalPlayer)
         {
-            // this objecct belong to other player
+            // this object belong to other player
             return;
         }
 
@@ -32,7 +32,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     
     void Update()
     {
-        
+   
     }
 
     void OnPlayerNameChanged(string newName)
@@ -48,7 +48,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     {
         Debug.Log("PlayerObject: I am alive !!!");
         PlayerUnit = Instantiate(PlayerUnitPrefab);
-        
+        NetworkManager.singleton.GetComponent<GameObjectList>().gameObjectList.Add(PlayerUnit);
         CmdChangePlayerName(PlayerName);
         NetworkServer.SpawnWithClientAuthority(PlayerUnit, connectionToClient);
 
@@ -58,7 +58,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     [Command]
     void CmdChangePlayerName(string name)
     {
-        PlayerName = name + Random.Range(1, 100);
+        PlayerName = name + netId;
         RpcChangePlayerNameTag();
         Debug.Log("name changed");
     }

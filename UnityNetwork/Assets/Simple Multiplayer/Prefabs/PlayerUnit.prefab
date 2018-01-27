@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 114944609708048822}
   - component: {fileID: 114193311523854138}
   - component: {fileID: 114391202551897484}
+  - component: {fileID: 54804938993266204}
   m_Layer: 0
   m_Name: PlayerUnit
-  m_TagString: Untagged
+  m_TagString: PlayerUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +79,6 @@ GameObject:
   - component: {fileID: 135088452881004402}
   - component: {fileID: 23837716303601952}
   - component: {fileID: 114718235976731590}
-  - component: {fileID: 54348572972255928}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -252,12 +252,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387128188809226}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54348572972255928
+--- !u!54 &54804938993266204
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1387128188809226}
+  m_GameObject: {fileID: 1094996066697408}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -319,6 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1730d1a7c391004d8f20936c1bd90fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainObject: {fileID: 0}
+  PlayerUnitList: []
 --- !u!114 &114391202551897484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
+  m_TransformSyncMode: 3
   m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -401,7 +403,7 @@ MonoBehaviour:
   m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  m_InterpolateMovement: 0.5
 --- !u!124 &124339691190325502
 Behaviour:
   m_ObjectHideFlags: 1

@@ -47,7 +47,7 @@ public class SetupLocalPlayer : NetworkBehaviour {
             be.enabled = true;
         }
         this.gameObject.transform.Find("Body").GetComponent<MeshRenderer>().enabled = false;
-        this.gameObject.transform.Find("Name").gameObject.SetActive(false);
+        this.gameObject.transform.Find("Name").GetComponent<MeshRenderer>().enabled = false;
     }
     // Update is called once per frame
     void Update ()

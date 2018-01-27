@@ -21,11 +21,15 @@ public class PlayerUnit : NetworkBehaviour {
     {
         NetworkInstanceId id = this.gameObject.GetComponent<NetworkIdentity>().netId;
         Debug.Log("id: " + this.gameObject.GetComponent<NetworkIdentity>().netId.Value);
-        Debug.Log("Client authority: " + this.gameObject.GetComponent<NetworkIdentity>().clientAuthorityOwner);
+        //Debug.Log("Client authority: " + this.gameObject.GetComponent<NetworkIdentity>().playerControllerId);
 
+
+        // Get the PlayerConnectionObject by substract 1 from the netid
+        // This is not the best strategy but it work for now
+        // TODO: need a better way
         GameObject connectionObject = ClientScene.FindLocalObject(new NetworkInstanceId(id.Value - 1));
         ConnectionObject = connectionObject;
-        Debug.Log(connectionObject.name);
+        //Debug.Log(connectionObject.name);
         ChangePlayerDisplayName(connectionObject.GetComponent<PlayerConnectionObject>().PlayerName);
     }
 

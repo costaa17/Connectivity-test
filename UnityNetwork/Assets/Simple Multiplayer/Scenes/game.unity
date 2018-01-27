@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 1133635356}
   - component: {fileID: 1133635355}
   - component: {fileID: 1133635357}
+  - component: {fileID: 1133635358}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -476,6 +477,18 @@ MonoBehaviour:
   showGUI: 1
   offsetX: 0
   offsetY: 0
+--- !u!114 &1133635358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1133635354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f33251c87d06e4f9f616d2049d8a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectList: []
 --- !u!1 &1145787535
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +521,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d22ed566011a9ff4a97d5032d51c7b18, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -602,8 +615,8 @@ Camera:
   m_GameObject: {fileID: 1222868816}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.5294118, g: 0.24524224, b: 0.24524224, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
