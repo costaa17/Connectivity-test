@@ -8,10 +8,11 @@ public class FaceObject : NetworkBehaviour {
     public GameObject mainObject;
     public List<GameObject> PlayerUnitList;
 
-	void Start () {
+    void Start () {
         PlayerUnitList = new List<GameObject>();
         Debug.Log("number of keys: " + ClientScene.objects.Keys.Count);
         Debug.Log("number of fabs: " + NetworkManager.singleton.spawnPrefabs.Count);
+        
         foreach (var value in ClientScene.objects.Values)
         {
             GameObject go = value.gameObject;
@@ -21,6 +22,7 @@ public class FaceObject : NetworkBehaviour {
                 {
                     mainObject = go;
                     NetworkManager.singleton.gameObject.GetComponent<GameObjectList>().SetMainPlayerUnit(mainObject);
+                    
                     continue;
                 }
                 PlayerUnitList.Add(go);
@@ -29,6 +31,10 @@ public class FaceObject : NetworkBehaviour {
         }
     }
 
+    public override void OnStartAuthority()
+    {
+
+    }
 
     void Update () {
         FollowCamera();
