@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114363993844644582}
   m_Layer: 0
   m_Name: PlayerObject
-  m_TagString: Untagged
+  m_TagString: PlayerConnectionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,5 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15267b7bbffcf540a5d03501e76f765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerUnitPrefab: {fileID: 1763183889637458, guid: 2d186a112ed17f04daa7097637b14602,
+  PlayerUnitPrefab: {fileID: 1094996066697408, guid: 2d186a112ed17f04daa7097637b14602,
     type: 2}
+  PlayerName: Default
+  PlayerUnit: {fileID: 0}
