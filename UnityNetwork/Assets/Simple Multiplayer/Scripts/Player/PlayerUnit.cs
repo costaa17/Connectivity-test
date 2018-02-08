@@ -29,7 +29,7 @@ public class PlayerUnit : NetworkBehaviour {
     public override void OnStartClient()
     {
         NetworkInstanceId id = this.gameObject.GetComponent<NetworkIdentity>().netId;
-        Debug.Log("id: " + this.gameObject.GetComponent<NetworkIdentity>().netId.Value);
+        //Debug.Log("id: " + this.gameObject.GetComponent<NetworkIdentity>().netId.Value);
         //Debug.Log("Client authority: " + this.gameObject.GetComponent<NetworkIdentity>().playerControllerId);
 
 
@@ -47,6 +47,12 @@ public class PlayerUnit : NetworkBehaviour {
     {
         //Debug.Log("local(player unit): " + isLocalPlayer);
         //Debug.Log("hasauthor(player unit): " + hasAuthority);
+        NetworkManager.singleton.gameObject.GetComponent<GameObjectList>().SetMainPlayerUnit(this.gameObject);
+        GameObject.Find("JumpButton").GetComponent<Button>().onClick.AddListener(Jump);
+    }
+    private void Jump()
+    {
+        
     }
 
     void Update () {
@@ -88,30 +94,18 @@ public class PlayerUnit : NetworkBehaviour {
         #region FOV movement
         if (gyroControl.IsEnable && toggleFVR.isOn)
         {
-            //Vector3 rotation = new Vector3(0f, 0f, 0f);
-            //transform.Rotate(rotation);
-            
-            // rotate camera 
-            //cam.transform.localRotation = gyroControl.GetOrientation();
 
-            Vector3 angle = gyroControl.GetOrientation().eulerAngles;
-            //Debug.Log("gyro angle: " + angle);
-            //Debug.Log("gyro quad: " + gyroControl.GetOrientation());
-            // rotate object
-            //float y = angle.y;
-            //transform.eulerAngles = new Vector3(transform.eulerAngles.x, y, transform.eulerAngles.z);
-            head.rotation = gyroControl.GetOrientation();
-            cam.transform.localRotation = head.rotation;
-            //Debug.Log("Cam dir: " + cam.transform.forward);
-            //Debug.Log("object dir: " + transform.forward);
-            transform.forward = new Vector3(cam.transform.forward.x, 0 , cam.transform.forward.z );
-            //transform.eulerAngles = new Vector3(transform.eulerAngles.x, head.eulerAngles.y, transform.eulerAngles.z);
-            //transform.eulerAngles = head.rotation.eulerAngles;
+            // rotate object & object
+
+            Quaternion gyroRotation = gyroControl.GetOrientation();
+            cam.transform.localRotation = gyroRotation;
+            transform.forward = new Vector3( cam.transform.forward.x, 0 , cam.transform.forward.z );
+            head.eulerAngles = new Vector3(-cam.transform.eulerAngles.x, head.eulerAngles.y, head.eulerAngles.z);
 
             //Debug.Log("y rotate rate: " + gyroControl.gyro.rotationRate.y);
             //Debug.Log("x rotate rate: " + gyroControl.gyro.rotationRate.x);
-            float y = FilteredValue(gyroControl.gyro.rotationRate.y);
-            float x = FilteredValue(gyroControl.gyro.rotationRate.x);
+            //float y = FilteredValue(gyroControl.gyro.rotationRate.y);
+            //float x = FilteredValue(gyroControl.gyro.rotationRate.x);
             //transform.RotateAround(transform.position, Vector3.up, -y * Time.deltaTime * mouseSensitivity * 10);
             //head.RotateAround(head.position, Vector3.right, -x * Time.deltaTime * mouseSensitivity * 10);
         }
@@ -146,7 +140,7 @@ public class PlayerUnit : NetworkBehaviour {
         }
         //Debug.Log("x rotate rate: " + gyroControl.gyro.rotationRate.x);
 
-        Debug.Log("player tranform angle: " + transform.eulerAngles);
+        //Debug.Log("player tranform angle: " + transform.eulerAngles);
 
         #endregion
 

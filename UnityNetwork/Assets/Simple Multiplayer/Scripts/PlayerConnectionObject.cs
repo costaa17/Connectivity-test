@@ -27,7 +27,7 @@ public class PlayerConnectionObject : NetworkBehaviour
         // Spawn an object to the world
         CmdSpawnMyUnit();
         //this.GetComponent<NetworkIdentity>().connectionToServer.playerControllers;
-        Debug.Log("id: " + this.gameObject.GetComponent<NetworkIdentity>().netId);
+        //Debug.Log("id: " + this.gameObject.GetComponent<NetworkIdentity>().netId);
     }
     
     void Update()

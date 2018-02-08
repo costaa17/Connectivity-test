@@ -17,13 +17,6 @@ public class SetupLocalPlayer : NetworkBehaviour {
     // hasAuthority should be false first
     public override void OnStartClient()
     {
-        //Debug.Log("1local(set up): " + isLocalPlayer);
-        //Debug.Log("1hasauthor(set up): " + hasAuthority);
-        
-        //if (!hasAuthority)
-        //{
-        
-        //}
 
         Debug.Log("disable stuff");
         foreach (Behaviour be in BehavioursToDisable)
@@ -38,10 +31,7 @@ public class SetupLocalPlayer : NetworkBehaviour {
 
     public override void OnStartAuthority()
     {
-        //Debug.Log("2local(set up): " + isLocalPlayer);
-        //Debug.Log("2hasauthor(set up): " + hasAuthority);
-
-        Debug.Log("enable stuff");
+        //Debug.Log("enable stuff");
         foreach (Behaviour be in BehavioursToDisable)
         {
             be.enabled = true;

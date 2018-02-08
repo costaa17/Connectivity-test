@@ -5,16 +5,18 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour {
 
     public Transform playerTransform;
-
+    private Vector3 forwardVec;
 	void Start () {
-		
+        forwardVec = new Vector3();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if(playerTransform != null)
         {
-            transform.position = playerTransform.position;
+            forwardVec.x = playerTransform.forward.x;
+            forwardVec.z = playerTransform.forward.z;
+            transform.position = playerTransform.position + (-forwardVec) * .5f;
         }
 	}
 
