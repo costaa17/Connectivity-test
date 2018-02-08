@@ -20,17 +20,17 @@ public class GyroscopeController : NetworkBehaviour {
     public override void OnStartAuthority()
     {
         cameraFollow = GameObject.Find("FOVCamera").GetComponent<CameraFollow>();
-        cameraFollow.SetPlayerFollow(this.transform);
+        cameraFollow.SetPlayerFollow(this.transform.Find("Head"));
         if (!CheckGyroscopeSupport()) return;
         Debug.Log("run gyro");
 
     }
 
-    // Update is called once per frame
+    
     void Update () {
         if (!IsEnable) { return;  }
-        Debug.Log("Gyro use: " + IsEnable);
-        Debug.Log("Gyro atttitude: " + gyro.attitude + " gyro orientation: " + GetOrientation());
+        //Debug.Log("Gyro use: " + IsEnable);
+        //Debug.Log("Gyro atttitude: " + gyro.attitude + " gyro orientation: " + GetOrientation());
 	}
 
     private bool CheckGyroscopeSupport()
