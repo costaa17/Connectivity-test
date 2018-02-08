@@ -50,9 +50,11 @@ public class PlayerUnit : NetworkBehaviour {
         NetworkManager.singleton.gameObject.GetComponent<GameObjectList>().SetMainPlayerUnit(this.gameObject);
         GameObject.Find("JumpButton").GetComponent<Button>().onClick.AddListener(Jump);
     }
+
+    private float jumpForce = 250;
     private void Jump()
     {
-        
+        this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
     }
 
     void Update () {
@@ -69,6 +71,10 @@ public class PlayerUnit : NetworkBehaviour {
            || Input.GetKey(KeyCode.UpArrow)|| Input.GetKey(KeyCode.DownArrow))
         {
             Debug.Log("Im movingg");
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
         }
 
         // Movement
