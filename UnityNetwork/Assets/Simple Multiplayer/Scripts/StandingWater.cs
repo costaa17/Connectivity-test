@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class StandingWater : MonoBehaviour {
+public class StandingWater : NetworkBehaviour {
 
     private float health = 100;
     private TextMesh healthText;
@@ -14,7 +15,7 @@ public class StandingWater : MonoBehaviour {
 	void Update () {
         if (IsAlive())
         {
-            DestroyObject(this.gameObject);
+            CmdDestroy();
         }
         healthText.text = "";
         healthText.text = "water health: " + health;
@@ -28,6 +29,12 @@ public class StandingWater : MonoBehaviour {
     public void Clean(float val)
     {
         health -= val;
+    }
+
+    [Command]
+    public void CmdDestroy()
+    {
+        NetworkServer.Destroy(this.gameObject);
     }
 
 }

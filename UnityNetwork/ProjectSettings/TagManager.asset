@@ -8,6 +8,7 @@ TagManager:
   - PlayerUnit
   - Pickupable
   - Cleanable
+  - Ground
   layers:
   - Default
   - TransparentFX

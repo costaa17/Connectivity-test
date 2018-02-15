@@ -18,7 +18,7 @@ public class Clean : MonoBehaviour {
 	
 	void Update () {
         CheckCleanObject();
-        Debug.Log("is screen touch: " + isScreenTouch);
+        //Debug.Log("is screen touch: " + isScreenTouch);
         if (Input.touchCount > 0)
         {
             foreach (Touch touch in Input.touches)
