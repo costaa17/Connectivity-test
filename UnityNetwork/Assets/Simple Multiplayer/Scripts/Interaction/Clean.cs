@@ -18,7 +18,7 @@ public class Clean : MonoBehaviour {
 	
 	void Update () {
         CheckCleanObject();
-        Debug.Log("is screen touch: " + isScreenTouch);
+        //Debug.Log("is screen touch: " + isScreenTouch);
         if (Input.touchCount > 0)
         {
             foreach (Touch touch in Input.touches)
@@ -69,7 +69,7 @@ public class Clean : MonoBehaviour {
             {
                 
 #if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
-                if ((Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) && child.CompareTag("Cleanable"))
+                if ((Input.GetKey(KeyCode.E) || Input.GetMouseButton(0)) && child.CompareTag("Cleanable"))
 #elif UNITY_IOS || UNITY_ANDROID
                 if (isScreenTouch && child.CompareTag("Cleanable"))
 #endif

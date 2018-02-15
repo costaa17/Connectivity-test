@@ -7,7 +7,7 @@ public class PickUpObject : MonoBehaviour {
 
     public Transform fovCam;
     
-    private const float OBJECT_INTERACT_DISTANCE = 2;
+    private const float OBJECT_INTERACT_DISTANCE = 2.5f;
     private GameObject objectPickup;
     private bool isHoldingObject;
     private bool isScreenTouch;

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4218308111677834}
   - component: {fileID: 23454625650629984}
   - component: {fileID: 102030613173331474}
-  - component: {fileID: 114363204744627214}
   - component: {fileID: 114180076874035136}
   m_Layer: 0
   m_Name: HealthText
@@ -42,6 +41,8 @@ GameObject:
   - component: {fileID: 135688148702511266}
   - component: {fileID: 23135067875834126}
   - component: {fileID: 114059439412138682}
+  - component: {fileID: 114831019466901902}
+  - component: {fileID: 114885060954776214}
   m_Layer: 0
   m_Name: StandingWater
   m_TagString: Untagged
@@ -225,12 +226,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainObject: {fileID: 0}
   PlayerUnitList: []
---- !u!114 &114363204744627214
+--- !u!114 &114831019466901902
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1075476086074078}
+  m_GameObject: {fileID: 1249564345602812}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
@@ -257,6 +258,27 @@ MonoBehaviour:
     i15: 25
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114885060954776214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1249564345602812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135688148702511266
 SphereCollider:
   m_ObjectHideFlags: 1
