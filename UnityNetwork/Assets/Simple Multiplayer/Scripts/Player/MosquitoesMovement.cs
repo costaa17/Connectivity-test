@@ -7,21 +7,21 @@ using UnityEngine.UI;
 
 public class MosquitoesMovement : PlayerMovement {
 
-    private float speed = 5;
-    private float mouseSensitivity = 5;
-    private Transform head;
-    private bool isGround;
+    private Rigidbody rb;
 
     public enum MovementMode { Walking, Flying };
     public MovementMode movementMode = MovementMode.Walking;
 
     void Start () {
         base.Start();
+        rb = this.gameObject.GetComponent<Rigidbody>();
+        this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+
     }
 
     public override void OnStartAuthority()
     {
-        GameObject.Find("JumpButton").GetComponent<Button>().onClick.AddListener(Jump);
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,8 +29,8 @@ public class MosquitoesMovement : PlayerMovement {
         GameObject go = collision.gameObject;
         if (go.CompareTag("Ground"))
         {
-            isGround = true;
-            this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            IsGround = true;
+            //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
             movementMode = MovementMode.Walking;
         }
     }
@@ -40,14 +40,15 @@ public class MosquitoesMovement : PlayerMovement {
         GameObject go = collision.gameObject;
         if (go.CompareTag("Ground"))
         {
-            isGround = false;
-            this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            IsGround = false;
+            //this.gameObject.GetComponent<Rigidbody>().useGravity = false;
             movementMode = MovementMode.Flying;
         }
     }
 
     void Update () {
         base.Update();
+        Debug.Log("velocity: " + rb.velocity);
     }
 
     private float FilteredValue(float val)
@@ -56,14 +57,16 @@ public class MosquitoesMovement : PlayerMovement {
         else return 0;
     }
 
-    private float jumpForce = 250;
+    private float jumpForce = 2f;
+
     public override void Jump()
     {
-        this.transform.position += Vector3.up * 2;
+        rb.velocity = (Vector3.up*jumpForce);
     }
 
     public override void Movement()
     {
+        //Getting control inputs
         float moveX, moveY;
         if (joystickLeft.IsEnable)
         {
@@ -76,17 +79,32 @@ public class MosquitoesMovement : PlayerMovement {
             moveX = Input.GetAxis("Horizontal");
             moveY = Input.GetAxis("Vertical");
         }
-        //Debug.Log("x movement : " + moveX);
-        //Debug.Log("y movement : " + moveY);
-        if (isGround)
+
+        if (IsGround)
         {
-            transform.Translate(moveX * Time.deltaTime * speed, 0f, moveY * Time.deltaTime * speed);
+            //Walking 
+            Speed = 3;
+            transform.Translate(moveX * Time.deltaTime * Speed, 0f, moveY * Time.deltaTime * Speed);
+            if (!FJButton.IsButtonHold)
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
         else
         {
-            transform.position += (cam.transform.forward * moveY * speed * Time.deltaTime);
-            transform.Translate(moveX * Time.deltaTime * speed, 0f, 0f);
+            //Flying
+            Speed = 100;
+            //transform.position += (cam.transform.forward * moveY * Speed * Time.deltaTime);
+            //moveX != 0 ||
+            if (moveY != 0)
+            {
+                rb.velocity = (cam.transform.forward * moveY * Speed * Time.deltaTime);
+            }
+            //rb.velocity = new Vector3(moveX * Time.deltaTime * Speed, 0f, 0f);
+            rb.velocity += (Vector3.down * .05f);
+            //rb.velocity -= (rb.velocity * .05f * Speed * Time.deltaTime);
         }
+
 
     }
 }
