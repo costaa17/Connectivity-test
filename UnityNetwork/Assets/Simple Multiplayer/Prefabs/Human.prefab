@@ -21,12 +21,12 @@ GameObject:
   - component: {fileID: 4195918518549460}
   - component: {fileID: 114481123486654378}
   - component: {fileID: 114944609708048822}
-  - component: {fileID: 114193311523854138}
   - component: {fileID: 114391202551897484}
   - component: {fileID: 54804938993266204}
   - component: {fileID: 114709855157299124}
   - component: {fileID: 114473545090827164}
   - component: {fileID: 114764361522183462}
+  - component: {fileID: 114948421148620018}
   - component: {fileID: 114347121255473044}
   m_Layer: 0
   m_Name: Human
@@ -369,18 +369,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
---- !u!114 &114193311523854138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1094996066697408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf35e048d1385554586fefd2712cca4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConnectionObject: {fileID: 0}
 --- !u!114 &114218208886040098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -405,6 +393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e8e62f6d18a4344950c2dc70b87d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minViewAngle: -70
+  maxViewAngle: 70
   cam: {fileID: 0}
   joystickLeft: {fileID: 0}
   joystickRight: {fileID: 0}
@@ -421,8 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46933932e347d0e4294549e85b43a734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BehavioursToDisable:
-  - {fileID: 114193311523854138}
+  BehavioursToDisable: []
   sceneCamera: {fileID: 0}
 --- !u!114 &114473545090827164
 MonoBehaviour:
@@ -526,6 +515,18 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 0.5
+--- !u!114 &114948421148620018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094996066697408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf35e048d1385554586fefd2712cca4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConnectionObject: {fileID: 0}
 --- !u!135 &135088452881004402
 SphereCollider:
   m_ObjectHideFlags: 1

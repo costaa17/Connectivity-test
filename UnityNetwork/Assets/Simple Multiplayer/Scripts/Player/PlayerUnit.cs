@@ -34,14 +34,6 @@ public class PlayerUnit : NetworkBehaviour {
         //Debug.Log("local(player unit): " + isLocalPlayer);
         //Debug.Log("hasauthor(player unit): " + hasAuthority);
         NetworkManager.singleton.gameObject.GetComponent<GameObjectList>().SetMainPlayerUnit(this.gameObject);
-        GameObject.Find("JumpButton").GetComponent<Button>().onClick.AddListener(Jump);
-    }
-
-    private float jumpForce = 250;
-
-    private void Jump()
-    {
-        this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
     }
 
     void Update () {

@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4086159195294412}
   - component: {fileID: 114114063147953444}
   - component: {fileID: 114646245536163836}
-  - component: {fileID: 114490084628010704}
   - component: {fileID: 114828450082349340}
   - component: {fileID: 54025144177097830}
   - component: {fileID: 114987676673863102}
   - component: {fileID: 114719425280162390}
+  - component: {fileID: 114704814114271826}
   - component: {fileID: 114081942308214466}
   m_Layer: 0
   m_Name: Mosquitoes
@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028616664029932}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.999718, y: 1.0907, z: -18.48}
+  m_LocalPosition: {x: 0, y: 1.0907, z: 0}
   m_LocalScale: {x: 0.22791146, y: 0.22791144, z: 0.22791144}
   m_Children:
   - {fileID: 4627277560813758}
@@ -478,6 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7700aa1404020499786ed31f89a0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minViewAngle: -70
+  maxViewAngle: 70
   cam: {fileID: 0}
   joystickLeft: {fileID: 0}
   joystickRight: {fileID: 0}
@@ -516,18 +518,6 @@ MonoBehaviour:
     i15: 40
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114490084628010704
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028616664029932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf35e048d1385554586fefd2712cca4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConnectionObject: {fileID: 0}
 --- !u!114 &114646245536163836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -549,6 +539,18 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 0.5
+--- !u!114 &114704814114271826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1028616664029932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf35e048d1385554586fefd2712cca4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConnectionObject: {fileID: 0}
 --- !u!114 &114719425280162390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -585,8 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46933932e347d0e4294549e85b43a734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BehavioursToDisable:
-  - {fileID: 114490084628010704}
+  BehavioursToDisable: []
   sceneCamera: {fileID: 0}
 --- !u!114 &114987676673863102
 MonoBehaviour:

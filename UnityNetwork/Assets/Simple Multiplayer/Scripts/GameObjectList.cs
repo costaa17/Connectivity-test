@@ -21,5 +21,6 @@ public class GameObjectList : NetworkBehaviour {
     public void SetMainPlayerUnit(GameObject cUnit)
     {
         mainClientUnit = cUnit;
+        GameObject.Find("JumpButton").GetComponent<FlyJumpButton>().SetPlayerMovemment(cUnit.GetComponent<PlayerMovement>());
     }
 }

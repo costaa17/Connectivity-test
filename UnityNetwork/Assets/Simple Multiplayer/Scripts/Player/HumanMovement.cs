@@ -7,27 +7,29 @@ using UnityEngine.UI;
 
 public class HumanMovement : PlayerMovement {
 
-    private float speed = 5;
-    private float mouseSensitivity = 5;
-    private Transform head;
 
     void Start () {
         base.Start();
     }
 
-    public override void OnStartAuthority()
-    {
-        GameObject.Find("JumpButton").GetComponent<Button>().onClick.AddListener(Jump);
-    }
+    //public override void OnStartAuthority()
+    //{
+    //    GameObject.Find("JumpButton").GetComponent<Button>().onClick.AddListener(Jump);
+    //}
 
     void Update () {
         base.Update();
     }
 
     private float jumpForce = 250;
+
     public override void Jump()
     {
-        this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
+        Debug.Log("Jump force");
+        if (IsGround)
+        {
+            this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
+        }
     }
 
     public override void Movement()
@@ -46,6 +48,6 @@ public class HumanMovement : PlayerMovement {
         }
         //Debug.Log("x movement : " + moveX);
         //Debug.Log("y movement : " + moveY);
-        transform.Translate(moveX * Time.deltaTime * speed, 0f, moveY * Time.deltaTime * speed);
+        transform.Translate(moveX * Time.deltaTime * Speed, 0f, moveY * Time.deltaTime * Speed);
     }
 }
