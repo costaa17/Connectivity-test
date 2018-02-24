@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class PickUpObject : MonoBehaviour {
+public class PickUpObject : NetworkBehaviour {
 
     public Transform fovCam;
     
@@ -20,7 +21,9 @@ public class PickUpObject : MonoBehaviour {
     }
 	
 	void Update () {
-        
+        if (!hasAuthority) {
+            return;
+        }
 
         if (isHoldingObject)
         {
@@ -88,6 +91,8 @@ public class PickUpObject : MonoBehaviour {
 #endif
         {
             isHoldingObject = false;
+            objectPickup.GetComponent<IsObjectPickUp>().IsPickup = false;
+            CmdRemoveLocalPlayerAuthority(objectPickup);
             objectPickup = null;
             screenTouchCount = 0;
             Debug.Log("release object");
@@ -112,10 +117,36 @@ public class PickUpObject : MonoBehaviour {
 #endif
                 {
                     Debug.Log("pick up object");
-                    objectPickup = rayHit.collider.gameObject;
-                    isHoldingObject = true;
+                    GameObject go = rayHit.collider.gameObject;
+                    if (!go.GetComponent<IsObjectPickUp>().IsPickup)
+                    {
+                        CmdAddLocalAuthority(go);
+                        objectPickup = go;
+                        go.GetComponent<IsObjectPickUp>().IsPickup = true;
+                        isHoldingObject = true;
+                    }
                 }
             }
         }
+    }
+
+    [Command]
+    public void CmdAddLocalAuthority(GameObject go)
+    {
+        GameObject goClient = NetworkServer.FindLocalObject(go.GetComponent<NetworkIdentity>().netId);
+        NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
+        PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
+        ni.AssignClientAuthority(pcu.connectionToClient);
+        Debug.Log("add authority");
+    }
+
+    [Command]
+    void CmdRemoveLocalPlayerAuthority(GameObject go)
+    {
+        GameObject goClient = NetworkServer.FindLocalObject(go.GetComponent<NetworkIdentity>().netId);
+        NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
+        PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
+        ni.AssignClientAuthority(pcu.connectionToClient);
+        Debug.Log("remove authority");
     }
 }
