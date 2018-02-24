@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameObjectList : NetworkBehaviour {
+public class GameObjectList : MonoBehaviour {
 
     public List<GameObject> gameObjectList;
     public GameObject mainClientUnit;

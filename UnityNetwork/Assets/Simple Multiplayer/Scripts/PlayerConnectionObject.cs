@@ -52,7 +52,7 @@ public class PlayerConnectionObject : NetworkBehaviour
 
     void OnPlayerNameChanged(string newName)
     {
-        Debug.Log("OnPlayerNamechanged: Oldname: " + PlayerName + " . New name: " + newName);
+        //Debug.Log("OnPlayerNamechanged: Oldname: " + PlayerName + " . New name: " + newName);
         PlayerName = newName;
     }
 
@@ -61,7 +61,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     [Command]
     void CmdSpawnMyUnit(int type)
     {
-        Debug.Log("PlayerObject: I am alive !!!");
+        //Debug.Log("PlayerObject: I am alive !!!");
         PlayerUnit = Instantiate(PlayerUnitPrefab[type]);
         NetworkManager.singleton.GetComponent<GameObjectList>().gameObjectList.Add(PlayerUnit);
         CmdChangePlayerName(PlayerName);
@@ -75,7 +75,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     {
         PlayerName = name + netId;
         RpcChangePlayerNameTag();
-        Debug.Log("name changed");
+        //Debug.Log("name changed");
     }
 
 

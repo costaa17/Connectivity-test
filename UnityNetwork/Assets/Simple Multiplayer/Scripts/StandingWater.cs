@@ -5,8 +5,10 @@ using UnityEngine.Networking;
 
 public class StandingWater : NetworkBehaviour {
 
+    [SyncVar]
     private float health = 100;
     private TextMesh healthText;
+
 	void Start () {
         healthText = transform.Find("HealthText").GetComponent<TextMesh>();
         

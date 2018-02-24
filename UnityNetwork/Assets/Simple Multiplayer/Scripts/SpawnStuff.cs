@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SpawnStuff : NetworkBehaviour
-{
+public class SpawnStuff : NetworkBehaviour {
 
     public List<GameObject> prefabs;
     public const float TIME_SPAWN = 5f;
