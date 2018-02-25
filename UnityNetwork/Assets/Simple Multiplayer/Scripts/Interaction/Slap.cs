@@ -44,7 +44,10 @@ public class Slap : PlayerAttack {
                 GameObject obj = child.parent.gameObject;
                 NetworkInstanceId netId = obj.GetComponent<NetworkIdentity>().netId;
                 Debug.Log("author: " + this.transform.Find("Name").GetComponent<TextMesh>().text);
-                CmdAddLocalAuthority(obj);
+                
+                //This is bug due to object is given multiple authorities
+                
+                
                 //Debug.Log("who pare?: " + obj.name);
 
                 interactObject = obj;
@@ -75,10 +78,29 @@ public class Slap : PlayerAttack {
     public void CmdPush(NetworkInstanceId id, float force)
     {
         GameObject go = NetworkServer.FindLocalObject(id);
-        Rigidbody rb = go.GetComponent<Rigidbody>();
-        Vector3 dir = this.transform.position - go.transform.position;
-        rb.AddForce(-dir * force);
-        CmdRemoveLocalPlayerAuthority(go);
+        bool isPlayer = false;
+        if(go.CompareTag("Human") || go.CompareTag("Mosquito"))
+        {
+            isPlayer = true;
+        }
+        NetworkConnection nc = go.GetComponent<NetworkIdentity>().connectionToClient;
+
+        if (!isPlayer)
+        {
+            CmdAddLocalAuthority(go);
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            Vector3 dir = this.transform.position - go.transform.position;
+            rb.AddForce(-dir * force);
+            CmdRemoveLocalPlayerAuthority(go);
+        }
+        else
+        {
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            Vector3 dir = this.transform.position - go.transform.position;
+            rb.AddForce(-dir * force);
+            //NetworkIdentity ni = go.GetComponent<NetworkIdentity>();
+            //ni.AssignClientAuthority(nc);
+        }
     }
 
     [Command]

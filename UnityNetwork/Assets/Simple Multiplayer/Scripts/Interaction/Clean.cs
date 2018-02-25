@@ -18,7 +18,7 @@ public class Clean : NetworkBehaviour {
     }
 	
 	void Update () {
-        if (!this.transform.parent.GetComponent<NetworkIdentity>().hasAuthority)
+        if (!this.transform.GetComponent<NetworkIdentity>().hasAuthority)
         {
             return;
         }

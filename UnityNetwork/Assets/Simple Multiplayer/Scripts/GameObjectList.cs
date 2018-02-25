@@ -21,6 +21,7 @@ public class GameObjectList : MonoBehaviour {
 
     public void SetMainPlayerUnit(GameObject cUnit)
     {
+        Debug.Log("set player unit");
         mainClientUnit = cUnit;
         GameObject.Find("JumpButton").GetComponent<FlyJumpButton>().SetPlayerMovement(mainClientUnit.GetComponent<PlayerMovement>());
         GameObject.Find("AttackButton").GetComponent<AttackButton>()

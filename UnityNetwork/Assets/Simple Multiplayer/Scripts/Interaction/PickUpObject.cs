@@ -21,7 +21,7 @@ public class PickUpObject : NetworkBehaviour {
     }
 	
 	void Update () {
-        if (!this.transform.parent.GetComponent<NetworkIdentity>().hasAuthority)
+        if (!this.transform.GetComponent<NetworkIdentity>().hasAuthority)
         {
             return;
         }
