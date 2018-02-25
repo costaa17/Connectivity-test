@@ -145,8 +145,7 @@ public class PickUpObject : NetworkBehaviour {
     {
         GameObject goClient = NetworkServer.FindLocalObject(go.GetComponent<NetworkIdentity>().netId);
         NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
-        PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
-        ni.AssignClientAuthority(pcu.connectionToClient);
+        ni.RemoveClientAuthority(ni.clientAuthorityOwner);
         Debug.Log("remove authority");
     }
 }

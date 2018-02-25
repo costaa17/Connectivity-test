@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class Clean : MonoBehaviour {
+public class Clean : NetworkBehaviour {
 
     public Transform fovCam;
     private const float OBJECT_INTERACT_DISTANCE = 2;
@@ -74,11 +75,24 @@ public class Clean : MonoBehaviour {
                 if (isScreenTouch && child.CompareTag("Cleanable"))
 #endif
                 {
-                    rayHit.transform.GetComponent<StandingWater>().Clean(0.5f);
+                    GameObject go = rayHit.collider.gameObject;
+                    if (!go.GetComponent<NetworkIdentity>().hasAuthority)
+                    {
+                        CmdAddLocalAuthority(go);
+                    }
+                    go.transform.GetComponent<StandingWater>().CmdClean(0.5f);
                 }
             }
         }
     }
 
-
+    [Command]
+    public void CmdAddLocalAuthority(GameObject go)
+    {
+        GameObject goClient = NetworkServer.FindLocalObject(go.GetComponent<NetworkIdentity>().netId);
+        NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
+        PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
+        ni.AssignClientAuthority(pcu.connectionToClient);
+        Debug.Log("add authority");
+    }
 }
