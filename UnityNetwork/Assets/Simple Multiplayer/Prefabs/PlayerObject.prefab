@@ -86,6 +86,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerUnitPrefab:
   - {fileID: 1094996066697408, guid: 2d186a112ed17f04daa7097637b14602, type: 2}
-  - {fileID: 1028616664029932, guid: 2c73d7575d4478a40b509c6889cc5828, type: 2}
+  - {fileID: 1022785152256458, guid: bb2e79bdc9578f44cba0c5b4854dace5, type: 2}
   PlayerName: Default
   PlayerUnit: {fileID: 0}

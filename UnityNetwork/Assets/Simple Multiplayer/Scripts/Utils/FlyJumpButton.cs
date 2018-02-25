@@ -43,7 +43,7 @@ public class FlyJumpButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     }
 
     // Called when a new authorized player create
-    public void SetPlayerMovemment(PlayerMovement playerMovement)
+    public void SetPlayerMovement(PlayerMovement playerMovement)
     {
         this.playerMovement = playerMovement;
     }

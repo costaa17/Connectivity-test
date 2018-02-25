@@ -18,6 +18,11 @@ public class Clean : NetworkBehaviour {
     }
 	
 	void Update () {
+        if (!this.transform.parent.GetComponent<NetworkIdentity>().hasAuthority)
+        {
+            return;
+        }
+
         CheckCleanObject();
         //Debug.Log("is screen touch: " + isScreenTouch);
         if (Input.touchCount > 0)
@@ -64,18 +69,17 @@ public class Clean : NetworkBehaviour {
         Debug.DrawRay(fovCam.position, fovCam.forward * OBJECT_INTERACT_DISTANCE);
         if (Physics.Raycast(ray, out rayHit, OBJECT_INTERACT_DISTANCE))
         {
-            //Debug.Log("object detected: " + rayHit.collider.gameObject.name);
-            //Debug.Log("nubber child ocunt: " + rayHit.transform.childCount);
+            //Debug.Log("(clean)object detected: " + rayHit.transform.name);
             foreach (Transform child in rayHit.transform)
             {
-                
 #if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
-                if ((Input.GetKey(KeyCode.E) || Input.GetMouseButton(0)) && child.CompareTag("Cleanable"))
+                //|| Input.GetMouseButton(0)
+                if ((Input.GetKey(KeyCode.E) ) && child.CompareTag("Cleanable"))
 #elif UNITY_IOS || UNITY_ANDROID
                 if (isScreenTouch && child.CompareTag("Cleanable"))
 #endif
                 {
-                    GameObject go = rayHit.collider.gameObject;
+                    GameObject go = rayHit.transform.gameObject;
                     if (!go.GetComponent<NetworkIdentity>().hasAuthority)
                     {
                         CmdAddLocalAuthority(go);
