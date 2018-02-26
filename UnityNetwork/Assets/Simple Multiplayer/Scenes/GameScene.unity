@@ -1686,6 +1686,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1240849681416886, guid: 8002c777bcb514e419a73eb629d52578,
         type: 2}
+    - target: {fileID: 114318773898257316, guid: 6add28904b3133e46b46f25ababa2c29,
+        type: 2}
+      propertyPath: m_CustomConfig
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114318773898257316, guid: 6add28904b3133e46b46f25ababa2c29,
+        type: 2}
+      propertyPath: m_MaxConnections
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6add28904b3133e46b46f25ababa2c29, type: 2}
   m_IsPrefabParent: 0
