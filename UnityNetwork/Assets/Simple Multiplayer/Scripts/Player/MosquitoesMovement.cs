@@ -48,7 +48,7 @@ public class MosquitoesMovement : PlayerMovement {
 
     void Update () {
         base.Update();
-        Debug.Log("velocity: " + rb.velocity);
+        //Debug.Log("velocity: " + rb.velocity);
     }
 
     private float FilteredValue(float val)

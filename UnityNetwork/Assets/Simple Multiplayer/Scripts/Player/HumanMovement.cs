@@ -25,7 +25,7 @@ public class HumanMovement : PlayerMovement {
 
     public override void Jump()
     {
-        Debug.Log("Jump force");
+        //Debug.Log("Jump force");
         if (IsGround)
         {
             this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);

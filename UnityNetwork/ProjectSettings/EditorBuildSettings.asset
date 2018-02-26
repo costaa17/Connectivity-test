@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Simple Multiplayer/Scenes/Main.unity
     guid: 11fc0072e0b8e4542a6c63d121a87f2f
+  - enabled: 0
+    path: Assets/Simple Multiplayer/Scenes/MenuScene.unity
+    guid: a6e6f2a4ef6aefd4abce931a6c570ff0
   - enabled: 1
-    path: Assets/Simple Multiplayer/Scenes/game.unity
+    path: Assets/Simple Multiplayer/Scenes/GameScene.unity
     guid: d14156bbffa1a7247a50f5393d2ba6b8

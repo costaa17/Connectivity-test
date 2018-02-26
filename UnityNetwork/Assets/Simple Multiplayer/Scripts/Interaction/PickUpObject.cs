@@ -21,7 +21,8 @@ public class PickUpObject : NetworkBehaviour {
     }
 	
 	void Update () {
-        if (!hasAuthority) {
+        if (!this.transform.GetComponent<NetworkIdentity>().hasAuthority)
+        {
             return;
         }
 
@@ -85,7 +86,8 @@ public class PickUpObject : NetworkBehaviour {
     private void CheckDropObject()
     {
 #if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN 
-        if ((Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) && objectPickup != null)
+        //|| Input.GetMouseButtonDown(0)
+        if ((Input.GetKeyDown(KeyCode.E) ) && objectPickup != null)
 #elif UNITY_IOS || UNITY_ANDROID
         if (!isScreenTouch && screenTouchCount > 1 && objectPickup != null)
 #endif
@@ -107,17 +109,18 @@ public class PickUpObject : NetworkBehaviour {
         Debug.DrawRay(fovCam.position, fovCam.forward * OBJECT_INTERACT_DISTANCE);
         if (Physics.Raycast(ray, out rayHit, OBJECT_INTERACT_DISTANCE))
         {
-            //Debug.Log("object detected: " + rayHit.collider.gameObject.name);
+            //Debug.Log("(pickup)object detected: " + rayHit.transform.name);
             foreach (Transform child in rayHit.transform)
             {
 #if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN 
-                if ((Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) && child.CompareTag("Pickupable"))
+                // || Input.GetMouseButtonDown(0)
+                if ((Input.GetKeyDown(KeyCode.E)) && child.CompareTag("Pickupable"))
 #elif UNITY_IOS || UNITY_ANDROID
                 if ( isScreenTouch && child.CompareTag("Pickupable"))
 #endif
                 {
                     Debug.Log("pick up object");
-                    GameObject go = rayHit.collider.gameObject;
+                    GameObject go = rayHit.transform.gameObject;
                     if (!go.GetComponent<IsObjectPickUp>().IsPickup)
                     {
                         CmdAddLocalAuthority(go);
@@ -137,7 +140,7 @@ public class PickUpObject : NetworkBehaviour {
         NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
         PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
         ni.AssignClientAuthority(pcu.connectionToClient);
-        Debug.Log("add authority");
+        //Debug.Log("add authority");
     }
 
     [Command]
@@ -145,8 +148,7 @@ public class PickUpObject : NetworkBehaviour {
     {
         GameObject goClient = NetworkServer.FindLocalObject(go.GetComponent<NetworkIdentity>().netId);
         NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
-        PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
-        ni.AssignClientAuthority(pcu.connectionToClient);
-        Debug.Log("remove authority");
+        ni.RemoveClientAuthority(ni.clientAuthorityOwner);
+        //Debug.Log("remove authority");
     }
 }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class Clean : MonoBehaviour {
+public class Clean : NetworkBehaviour {
 
     public Transform fovCam;
     private const float OBJECT_INTERACT_DISTANCE = 2;
@@ -17,6 +18,11 @@ public class Clean : MonoBehaviour {
     }
 	
 	void Update () {
+        if (!this.transform.GetComponent<NetworkIdentity>().hasAuthority)
+        {
+            return;
+        }
+
         CheckCleanObject();
         //Debug.Log("is screen touch: " + isScreenTouch);
         if (Input.touchCount > 0)
@@ -63,22 +69,34 @@ public class Clean : MonoBehaviour {
         Debug.DrawRay(fovCam.position, fovCam.forward * OBJECT_INTERACT_DISTANCE);
         if (Physics.Raycast(ray, out rayHit, OBJECT_INTERACT_DISTANCE))
         {
-            //Debug.Log("object detected: " + rayHit.collider.gameObject.name);
-            //Debug.Log("nubber child ocunt: " + rayHit.transform.childCount);
+            //Debug.Log("(clean)object detected: " + rayHit.transform.name);
             foreach (Transform child in rayHit.transform)
             {
-                
 #if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
-                if ((Input.GetKey(KeyCode.E) || Input.GetMouseButton(0)) && child.CompareTag("Cleanable"))
+                //|| Input.GetMouseButton(0)
+                if ((Input.GetKey(KeyCode.E) ) && child.CompareTag("Cleanable"))
 #elif UNITY_IOS || UNITY_ANDROID
                 if (isScreenTouch && child.CompareTag("Cleanable"))
 #endif
                 {
-                    rayHit.transform.GetComponent<StandingWater>().Clean(0.5f);
+                    GameObject go = rayHit.transform.gameObject;
+                    if (!go.GetComponent<NetworkIdentity>().hasAuthority)
+                    {
+                        CmdAddLocalAuthority(go);
+                    }
+                    go.transform.GetComponent<StandingWater>().CmdClean(0.5f);
                 }
             }
         }
     }
 
-
+    [Command]
+    public void CmdAddLocalAuthority(GameObject go)
+    {
+        GameObject goClient = NetworkServer.FindLocalObject(go.GetComponent<NetworkIdentity>().netId);
+        NetworkIdentity ni = goClient.GetComponent<NetworkIdentity>();
+        PlayerConnectionObject pcu = this.transform.GetComponent<PlayerUnit>().ConnectionObject.GetComponent<PlayerConnectionObject>();
+        ni.AssignClientAuthority(pcu.connectionToClient);
+        Debug.Log("add authority");
+    }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class GameObjectList : MonoBehaviour {
 
@@ -20,7 +21,14 @@ public class GameObjectList : MonoBehaviour {
 
     public void SetMainPlayerUnit(GameObject cUnit)
     {
+        Debug.Log("set player unit");
         mainClientUnit = cUnit;
-        GameObject.Find("JumpButton").GetComponent<FlyJumpButton>().SetPlayerMovemment(cUnit.GetComponent<PlayerMovement>());
+        GameObject.Find("JumpButton").GetComponent<FlyJumpButton>().SetPlayerMovement(mainClientUnit.GetComponent<PlayerMovement>());
+        GameObject.Find("AttackButton").GetComponent<AttackButton>()
+                                       .SetAttackTriggerBox(mainClientUnit.transform.Find("AttackCollider")
+                                       .GetComponent<AttackTriggerBox>());
+
+        GameObject.Find("AttackButton").GetComponent<Button>().onClick.AddListener(mainClientUnit.transform.Find("AttackCollider")
+                                                                          .GetComponent<AttackTriggerBox>().OnClick);
     }
 }

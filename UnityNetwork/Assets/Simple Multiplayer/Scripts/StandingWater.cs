@@ -15,6 +15,7 @@ public class StandingWater : NetworkBehaviour {
     }
 
 	void Update () {
+
         if (IsAlive())
         {
             CmdDestroy();
@@ -28,7 +29,8 @@ public class StandingWater : NetworkBehaviour {
         return health <= 0;
     }
     
-    public void Clean(float val)
+    [Command]
+    public void CmdClean(float val)
     {
         health -= val;
     }

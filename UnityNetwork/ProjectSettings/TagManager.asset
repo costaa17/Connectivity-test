@@ -9,6 +9,9 @@ TagManager:
   - Pickupable
   - Cleanable
   - Ground
+  - Mosquito
+  - Human
+  - Slapable
   layers:
   - Default
   - TransparentFX
