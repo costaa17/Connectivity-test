@@ -63,8 +63,10 @@ public class PlayerConnectionObject : NetworkBehaviour
     {
         //Debug.Log("PlayerObject: I am alive !!!");
         PlayerUnit = Instantiate(PlayerUnitPrefab[type]);
-        NetworkManager.singleton.GetComponent<GameObjectList>().gameObjectList.Add(PlayerUnit);
+        NetworkManager.singleton.GetComponent<GameObjectListManager>().gameObjectList.Add(PlayerUnit);
         CmdChangePlayerName(PlayerName);
+        Debug.Log("network connection: " + ClientScene.ready);
+        
         NetworkServer.SpawnWithClientAuthority(PlayerUnit, connectionToClient);
 
     }
@@ -75,7 +77,7 @@ public class PlayerConnectionObject : NetworkBehaviour
     {
         PlayerName = name + netId;
         RpcChangePlayerNameTag();
-        //Debug.Log("name changed");
+
     }
 
 

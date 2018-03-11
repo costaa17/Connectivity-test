@@ -43,38 +43,34 @@ public class Slap : PlayerAttack {
             {
                 GameObject obj = child.parent.gameObject;
                 NetworkIdentity ni = obj.GetComponent<NetworkIdentity>();
-                Debug.Log("author: " + this.transform.Find("Name").GetComponent<TextMesh>().text);
 
-                //This is bug due to object is given multiple authorities
+                Debug.Log("author: " + this.transform.Find("Name").GetComponent<TextMesh>().text);
 
                 //Debug.Log("who pare?: " + obj.name);
                 Debug.Log("is this ser: " + ni.isServer);
                 Debug.Log("is this cli: " + ni.isClient);
                 interactObject = obj;
-                float force = 100;
+                float force = 50;
                 if (obj.CompareTag("Human"))
                 {
-                    //if (ni.isClient && !ni.isServer) CmdPush(ni.netId, force);
-                    //else if (ni.isServer) RpcPush(ni.netId, force);
+                    //obj.GetComponent<HumanStatus>().CmdDealDamage(1, false);
+                    CmdDealDamage(ni.netId, 1, false);
                     CmdPush(ni.netId, force);
                 }
                 else if (obj.CompareTag("Mosquito"))
                 {
-                    force = 100;
-                    //if (ni.isClient && !ni.isServer) CmdPush(ni.netId, force);
-                    //else if (ni.isServer) RpcPush(ni.netId, force);
+                    force = 50;
+                    //obj.GetComponent<MosquitoStatus>().CmdDealDamage(1,false);
+                    CmdDealDamage(ni.netId, 1, false);
                     CmdPush(ni.netId, force);
                 }
                 else
                 {
-                    force = 100;
-                    //if (ni.isClient && !ni.isServer) CmdPush(ni.netId, force);
-                    //else if (ni.isServer) RpcPush(ni.netId, force);
+                    force = 50;
                     CmdPush(ni.netId, force);
                 }
             }
         }
-
     }
 
     [Command]
@@ -88,24 +84,16 @@ public class Slap : PlayerAttack {
         }
         NetworkIdentity ni = go.GetComponent<NetworkIdentity>();
         //NetworkConnection nc = ni.connectionToClient;
-        Debug.Log("cmd push call");
+        //Debug.Log("cmd push call");
         if (!isPlayer)
         {
             CmdAddLocalAuthority(go);
-            //Rigidbody rb = go.GetComponent<Rigidbody>();
-            //Vector3 dir = this.transform.position - go.transform.position;
-            //rb.AddForce(-dir * force);
             RpcPush(go, force);
             CmdRemoveLocalPlayerAuthority(go);
         }
         else
         {
             RpcPush(go, force);
-            //Rigidbody rb = go.GetComponent<Rigidbody>();
-            //Vector3 dir = this.transform.position - go.transform.position;
-            //rb.AddForce(-dir * force);
-
-            //ni.AssignClientAuthority(nc);
         }
     }
 
@@ -113,16 +101,25 @@ public class Slap : PlayerAttack {
     [ClientRpc]
     public void RpcPush(GameObject go, float force)
     {
-        
         //GameObject go = NetworkServer.FindLocalObject(id);
-        Debug.Log("rpc push call");
+        //Debug.Log("rpc push call");
         Rigidbody rb = go.GetComponent<Rigidbody>();
-        //Rigidbody rb = this.transform.GetComponent<Rigidbody>();
         Vector3 dir = this.transform.position - go.transform.position;
         rb.AddForce(-dir * force);
-
-
     }
+
+    [Command]
+    public void CmdDealDamage(NetworkInstanceId ni, float damage, bool isCon)
+    {
+        GameObject go = NetworkServer.FindLocalObject(ni);
+        RpcDealDamage(go, damage, isCon);
+    }
+    [ClientRpc]
+    public void RpcDealDamage(GameObject go, float damage, bool isCon)
+    {
+        go.GetComponent<PlayerStatus>().DealDamage(damage, isCon);
+    }
+
     [Command]
     public void CmdAddLocalAuthority(GameObject go)
     {

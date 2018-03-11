@@ -37,7 +37,7 @@ public class FaceObject : MonoBehaviour {
 
     private void FollowCamera()
     {
-        GameObject mainUnit = NetworkManager.singleton.gameObject.GetComponent<GameObjectList>().mainClientUnit;
+        GameObject mainUnit = NetworkManager.singleton.gameObject.GetComponent<GameObjectListManager>().mainClientUnit;
         //Debug.Log("main unit: " + mainUnit);
         if (mainUnit != null)
         {
