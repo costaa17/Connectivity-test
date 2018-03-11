@@ -14,7 +14,7 @@ public class AttackTriggerBox : MonoBehaviour {
     private float timeElapsed;
     private float timeResetMax = 0.5f;
     public Collider attackCollider;
-
+    public float boxDirectionScale = 2;
 	void Start () {
         attackCollider = transform.GetComponent<BoxCollider>();
         attackCollider.enabled = false;
@@ -29,7 +29,7 @@ public class AttackTriggerBox : MonoBehaviour {
         }
         //Debug.Log("time eleaspe: " + timeElapsed);
         //Debug.Log("is attack: " + isAttack);
-        transform.position = cam.transform.position + cam.transform.forward * 2;
+        transform.position = cam.transform.position + cam.transform.forward * boxDirectionScale;
         //Debug.Log("Time: " + timeElapsed);
         if (isAttack)
         {
@@ -56,12 +56,18 @@ public class AttackTriggerBox : MonoBehaviour {
         {
             playerAttack.Attack(other.gameObject);
         }
+        //if (transform.parent.CompareTag("Mosquito"))
+        //{
+        //    Debug.Log("other: " + other);
+        //    playerAttack.Attack(other.gameObject);
+        //}
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (transform.parent.CompareTag("Mosquito"))
         {
+            Debug.Log("other: " + other);
             playerAttack.Attack(other.gameObject);
         }
     }
@@ -69,7 +75,6 @@ public class AttackTriggerBox : MonoBehaviour {
     public void OnClick()
     {
         isAttack = true;
-        //Debug.Log("enable");
         attackCollider.enabled = true;
     }
 

@@ -33,7 +33,7 @@ public class PlayerUnit : NetworkBehaviour {
     {
         //Debug.Log("local(player unit): " + isLocalPlayer);
         //Debug.Log("hasauthor(player unit): " + hasAuthority);
-        NetworkManager.singleton.gameObject.GetComponent<GameObjectList>().SetMainPlayerUnit(this.gameObject);
+        NetworkManager.singleton.gameObject.GetComponent<GameObjectListManager>().SetMainPlayerUnit(this.gameObject);
 
     }
 

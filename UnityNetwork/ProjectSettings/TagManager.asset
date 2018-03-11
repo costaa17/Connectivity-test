@@ -12,6 +12,8 @@ TagManager:
   - Mosquito
   - Human
   - Slapable
+  - Layeggable
+  - Stingable
   layers:
   - Default
   - TransparentFX

@@ -21,7 +21,8 @@ public class FlyJumpButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (playerMovement != null && playerMovement.GetType() == typeof(MosquitoesMovement) && isButtonHold)
         {   
             playerMovement.Jump();
-        }else if (playerMovement != null && playerMovement.GetType() == typeof(HumanMovement))
+        }
+        else if (playerMovement != null && playerMovement.GetType() == typeof(HumanMovement))
         {
             // PC control (need better structure)
             if (Input.GetKeyDown(KeyCode.Space))

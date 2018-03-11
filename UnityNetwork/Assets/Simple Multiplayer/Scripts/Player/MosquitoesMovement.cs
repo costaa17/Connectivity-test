@@ -48,6 +48,10 @@ public class MosquitoesMovement : PlayerMovement {
 
     void Update () {
         base.Update();
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Jump();
+        }
         //Debug.Log("velocity: " + rb.velocity);
     }
 
@@ -83,12 +87,23 @@ public class MosquitoesMovement : PlayerMovement {
         if (IsGround)
         {
             //Walking 
-            Speed = 3;
+            Speed = 2;
             transform.Translate(moveX * Time.deltaTime * Speed, 0f, moveY * Time.deltaTime * Speed);
+            //rb.velocity = new Vector3(moveX * Time.deltaTime * Speed, 0f, moveY * Time.deltaTime * Speed);
+
+#if UNITY_ANDROID
             if (!FJButton.IsButtonHold)
             {
                 rb.velocity = Vector3.zero;
             }
+#endif
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                rb.velocity = Vector3.zero;
+            }
+#endif
+
         }
         else
         {

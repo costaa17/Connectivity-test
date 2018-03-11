@@ -7,6 +7,9 @@ public class StandingWater : NetworkBehaviour {
 
     [SyncVar]
     private float health = 100;
+    [SyncVar]
+    private int eggsLay;
+
     private TextMesh healthText;
 
 	void Start () {
@@ -21,7 +24,7 @@ public class StandingWater : NetworkBehaviour {
             CmdDestroy();
         }
         healthText.text = "";
-        healthText.text = "water health: " + health;
+        healthText.text = "water health: " + health + " eggs: " + eggsLay;
     }
 
     public bool IsAlive()
@@ -41,4 +44,9 @@ public class StandingWater : NetworkBehaviour {
         NetworkServer.Destroy(this.gameObject);
     }
 
+    [Command]
+    public void CmdAddEgg()
+    {
+        eggsLay++;
+    }
 }
