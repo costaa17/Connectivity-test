@@ -68,6 +68,7 @@ public class MosquitoesMovement : PlayerMovement {
         rb.velocity = (Vector3.up*jumpForce);
     }
 
+    private float accelerateY = 100;
     public override void Movement()
     {
         //Getting control inputs
@@ -98,7 +99,7 @@ public class MosquitoesMovement : PlayerMovement {
             }
 #endif
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (!Input.GetKey(KeyCode.Space))
             {
                 rb.velocity = Vector3.zero;
             }
@@ -108,12 +109,14 @@ public class MosquitoesMovement : PlayerMovement {
         else
         {
             //Flying
-            Speed = 100;
+            Speed = 150;
             //transform.position += (cam.transform.forward * moveY * Speed * Time.deltaTime);
             //moveX != 0 ||
             if (moveY != 0)
             {
-                rb.velocity = (cam.transform.forward * moveY * Speed * Time.deltaTime);
+                rb.velocity = (cam.transform.forward * moveY * 
+                              (Speed + Mathf.Abs(cam.transform.forward.y) * accelerateY) * Time.deltaTime);
+                
             }
             //rb.velocity = new Vector3(moveX * Time.deltaTime * Speed, 0f, 0f);
             rb.velocity += (Vector3.down * .05f);

@@ -15,6 +15,8 @@ public class AttackTriggerBox : MonoBehaviour {
     private float timeResetMax = 0.5f;
     public Collider attackCollider;
     public float boxDirectionScale = 2;
+    public bool isFollowCamera = true;
+
 	void Start () {
         attackCollider = transform.GetComponent<BoxCollider>();
         attackCollider.enabled = false;
@@ -29,7 +31,8 @@ public class AttackTriggerBox : MonoBehaviour {
         }
         //Debug.Log("time eleaspe: " + timeElapsed);
         //Debug.Log("is attack: " + isAttack);
-        transform.position = cam.transform.position + cam.transform.forward * boxDirectionScale;
+        transform.position = isFollowCamera ? cam.transform.position + cam.transform.forward * boxDirectionScale:
+                                                transform.position;
         //Debug.Log("Time: " + timeElapsed);
         if (isAttack)
         {

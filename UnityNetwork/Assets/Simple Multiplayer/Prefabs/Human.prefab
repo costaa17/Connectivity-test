@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4592976539384262}
   m_Layer: 0
   m_Name: Stingable
-  m_TagString: Untagged
+  m_TagString: Stingable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -559,6 +559,7 @@ MonoBehaviour:
   attackButton: {fileID: 0}
   playerMovement: {fileID: 114347121255473044}
   attackCollider: {fileID: 0}
+  boxDirectionScale: 2
 --- !u!114 &114218208886040098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -658,6 +659,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa80c16f0add94c8af153f5219edc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  isAlive: 1
+  isImmune: 0
 --- !u!114 &114709855157299124
 MonoBehaviour:
   m_ObjectHideFlags: 1

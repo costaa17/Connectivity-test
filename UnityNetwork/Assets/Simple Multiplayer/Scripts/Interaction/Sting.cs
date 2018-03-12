@@ -13,8 +13,11 @@ public class Sting : PlayerAttack {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (!this.transform.GetComponent<NetworkIdentity>().hasAuthority)
+        {
+            return;
+        }
+    }
 
     public override void Attack(GameObject other)
     {
@@ -35,7 +38,7 @@ public class Sting : PlayerAttack {
 
                 if (obj.CompareTag("Human"))
                 {
-                    CmdDealDamage(ni.netId, 0.5f, true);
+                    CmdDealDamage(ni.netId, 1f, true);
                 }
 
             }
