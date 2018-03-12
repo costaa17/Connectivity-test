@@ -560,6 +560,7 @@ MonoBehaviour:
   playerMovement: {fileID: 114347121255473044}
   attackCollider: {fileID: 0}
   boxDirectionScale: 2
+  isFollowCamera: 1
 --- !u!114 &114218208886040098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -729,7 +730,7 @@ MonoBehaviour:
   m_MovementTheshold: 0.001
   m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
-  m_InterpolateRotation: 1
+  m_InterpolateRotation: 10
   m_InterpolateMovement: 0.05
 --- !u!114 &114948421148620018
 MonoBehaviour:

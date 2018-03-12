@@ -7,6 +7,7 @@ public class SpawnStuff : NetworkBehaviour {
 
     public List<GameObject> prefabs;
     public const float TIME_SPAWN = 10f;
+    public const int MAX_SPAWN = 30;
     public Vector2 range;
     private List<GameObject> prefabsSpawned;
 
@@ -32,11 +33,14 @@ public class SpawnStuff : NetworkBehaviour {
     [Command]
     private void CmdSpawn()
     {
-        GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Count )], 
-                                    new Vector3(Random.Range(range.x, range.y), 1.5f, Random.Range(range.x, range.y)),
-                                    Quaternion.identity);
-        prefabsSpawned.Add(go);
-        NetworkServer.Spawn(go);
+        if(prefabsSpawned.Count <= MAX_SPAWN)
+        {
+            GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Count )], 
+                                        new Vector3(Random.Range(range.x, range.y), 1.5f, Random.Range(range.x, range.y)),
+                                        Quaternion.identity);
+            prefabsSpawned.Add(go);
+            NetworkServer.Spawn(go);
+        }
     }
 
 }

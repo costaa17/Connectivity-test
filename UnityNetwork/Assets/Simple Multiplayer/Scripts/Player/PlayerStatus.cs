@@ -31,27 +31,40 @@ public abstract class PlayerStatus : NetworkBehaviour {
             isImmune = false;
             timeImmuneElapsed = 0;
         }
+
+        if (!isAlive)
+        {
+            Reset();
+            isAlive = true;
+        }
     }
 
     //[Command]
     public void DealDamage(float health, bool isContinuous)
     {
-        if (isContinuous)
+        if (isAlive)
         {
-            this.health -= health;
-        }
-        else
-        {
-            if (!isImmune)
+            if (isContinuous)
             {
                 this.health -= health;
             }
+            else
+            {
+                if (!isImmune)
+                {
+                    this.health -= health;
+                }
+            }
+            isImmune = true;
+
+            if (this.health <= 0) isAlive = false;
         }
-        isImmune = true;
     }
 
     public void SetHealth(int health)
     {
         this.health = health;
     }
+
+    public abstract void Reset();
 }
