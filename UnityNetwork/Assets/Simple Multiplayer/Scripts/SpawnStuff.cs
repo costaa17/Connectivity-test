@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 public class SpawnStuff : NetworkBehaviour {
 
     public List<GameObject> prefabs;
-    public const float TIME_SPAWN = 5f;
+    public const float TIME_SPAWN = 10f;
+    public Vector2 range;
     private List<GameObject> prefabsSpawned;
 
     private float timeElapsed;
@@ -32,7 +33,7 @@ public class SpawnStuff : NetworkBehaviour {
     private void CmdSpawn()
     {
         GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Count )], 
-                                    new Vector3(Random.Range(-20, 20), 1.5f, Random.Range(-20, 20)),
+                                    new Vector3(Random.Range(range.x, range.y), 1.5f, Random.Range(range.x, range.y)),
                                     Quaternion.identity);
         prefabsSpawned.Add(go);
         NetworkServer.Spawn(go);

@@ -59,7 +59,7 @@ public class Slap : PlayerAttack {
                 }
                 else if (obj.CompareTag("Mosquito"))
                 {
-                    force = 50;
+                    force = 100;
                     //obj.GetComponent<MosquitoStatus>().CmdDealDamage(1,false);
                     CmdDealDamage(ni.netId, 1, false);
                     CmdPush(ni.netId, force);
